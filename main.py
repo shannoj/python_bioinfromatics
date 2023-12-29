@@ -1,8 +1,8 @@
 from DNAtoolkit import *
 import random
 
+rndDNAstr = ''.join([random.choice(Nucleotides) for nuc in range(50)])
 
+DNAseq = validateSeq(rndDNAstr)
 
-rndDNAstr = ''.join([random.choice(Nucleotides) for nuc in range(20)])
-
-print(validateSeq(rndDNAstr))
+print(countNucFrequency(rndDNAstr))
