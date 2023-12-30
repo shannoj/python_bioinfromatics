@@ -23,3 +23,6 @@ print(f'\nCodon Frequency Table: {frequency}\n')
 for frame in reading_frames:
     print(f'\n{frame}\n')
 
+test_rf = ['M', 'K', 'Q', 'T', 'S', 'P', 'Y', 'G', 'H', 'I', 'G', 'Y', 'E', 'W', 'R', '_','V', 'R']
+
+print(f'\nProteins: {proteins_from_rf(test_rf)}\n')
