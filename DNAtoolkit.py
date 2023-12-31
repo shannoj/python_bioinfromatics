@@ -83,3 +83,4 @@ def all_proteins_from_orfs(seq, startReadPos=0, endReadPos=0, ordered=False):
     if ordered:
         return sorted(res, key=len, reverse=True)
     return res
+
