@@ -29,9 +29,9 @@ class bio_seq:
     
     def show_seq_info(self):
         if self.seq_type == "DNA":
-            return f"[Label]: {self.label}\n[Sequence]: {self.seq}\n[Type]: {self.seq_type}\n[Length]: {len(self.seq)}\n[Is Valid]: {self.is_valid}\n[Nucleotide Frequency]: {self.countNucFrequency()}\n[GC Content]: {self.calculate_gc_content()}\n[Transcription]: {self.show_rna_transcription()}\n[Reverse Complement]: {self.generate_reverse_complement()}\n[Protein Translation]: {self.translate_seq()}\n[Reading Frames]: {self.gen_reading_frames()}\n[All Proteins]: {self.all_proteins_from_orfs()}"
+            return f"[Label]: {self.label}\n[Sequence]: {self.seq}\n[Type]: {self.seq_type}\n[Length]: {len(self.seq)}\n[Is Valid]: {self.is_valid}\n[Nucleotide Frequency]: {self.countNucFrequency()}\n[GC Content]: {self.calculate_gc_content()}%\n[Transcription]: {self.show_rna_transcription()}\n[Reverse Complement]: {self.generate_reverse_complement()}\n[Protein Translation]: {self.translate_seq()}\n[Reading Frames]: {self.gen_reading_frames()}\n[All Proteins]: {self.all_proteins_from_orfs()}"
         else:
-            return f"[Label]: {self.label}\n[Sequence]: {self.seq}\n[Type]: {self.seq_type}\n[Length]: {len(self.seq)}\n[Is Valid]: {self.is_valid}\n[Nucleotide Frequency]: {self.countNucFrequency()}\n[GC Content]: {self.calculate_gc_content()}\n[Reverse Transcription]: {self.show_dna_transcription()}\n[Reverse Complement]: {self.generate_reverse_complement()}\n[Protein Translation]: {self.translate_seq()}\n[Reading Frames]: {self.gen_reading_frames()}\n[All Proteins]: {self.all_proteins_from_orfs()}"
+            return f"[Label]: {self.label}\n[Sequence]: {self.seq}\n[Type]: {self.seq_type}\n[Length]: {len(self.seq)}\n[Is Valid]: {self.is_valid}\n[Nucleotide Frequency]: {self.countNucFrequency()}\n[GC Content]: {self.calculate_gc_content()}%\n[DNA Sequence]: {self.show_dna_transcription()}\n[Reverse Complement]: {self.generate_reverse_complement()}\n[Protein Translation]: {self.translate_seq()}\n[Reading Frames]: {self.gen_reading_frames()}\n[All Proteins]: {self.all_proteins_from_orfs()}"
     
     def generate_rna(self):
         """Convert DNA sequence into RNA sequence"""
