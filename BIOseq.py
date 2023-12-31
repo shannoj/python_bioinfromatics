@@ -30,7 +30,8 @@ class bio_seq:
     def show_seq_info(self):
         if self.seq_type == "DNA":
             return f"[Label]: {self.label}\n[Sequence]: {self.seq}\n[Type]: {self.seq_type}\n[Length]: {len(self.seq)}\n[Is Valid]: {self.is_valid}\n[Nucleotide Frequency]: {self.countNucFrequency()}\n[GC Content]: {self.calculate_gc_content()}\n[Transcription]: {self.show_rna_transcription()}\n[Reverse Complement]: {self.generate_reverse_complement()}\n[Protein Translation]: {self.translate_seq()}\n[Reading Frames]: {self.gen_reading_frames()}\n[All Proteins]: {self.all_proteins_from_orfs()}"
-        return "Use a DNA Sequence"
+        else:
+            return f"[Label]: {self.label}\n[Sequence]: {self.seq}\n[Type]: {self.seq_type}\n[Length]: {len(self.seq)}\n[Is Valid]: {self.is_valid}\n[Nucleotide Frequency]: {self.countNucFrequency()}\n[GC Content]: {self.calculate_gc_content()}\n[Reverse Transcription]: {self.show_dna_transcription()}\n[Reverse Complement]: {self.generate_reverse_complement()}\n[Protein Translation]: {self.translate_seq()}\n[Reading Frames]: {self.gen_reading_frames()}\n[All Proteins]: {self.all_proteins_from_orfs()}"
     
     def generate_rna(self):
         """Convert DNA sequence into RNA sequence"""
@@ -53,6 +54,14 @@ class bio_seq:
         """Convert RNA sequence into DNA sequence"""
         if self.seq_type == "RNA":
             self.seq_type = "DNA"
+            return self.seq.replace("U", "T")
+        if self.seq_type == "DNA":
+            return "Already a DNA sequence"
+        return "Not an RNA sequence"
+    
+    def show_dna_transcription(self):
+        """Show DNA transcription"""
+        if self.seq_type == "RNA":
             return self.seq.replace("U", "T")
         if self.seq_type == "DNA":
             return "Already a DNA sequence"
