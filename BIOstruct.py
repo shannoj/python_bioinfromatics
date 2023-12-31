@@ -1,6 +1,10 @@
-Nucleotides = ["A", "T", "C", "G"]
+NUCLEOTIDE_BASE = {
+    "DNA": ["A", "T", "C", "G"],
+    "RNA": ["A", "U", "C", "G"]
+}
+
 DNA_Revers_Complement = {"A": "T", "T": "A", "C": "G", "G": "C"}
-RNA_Nucleotides = ["A", "U", "C", "G"]
+
 DNA_Codons = {
    'GCT': 'A', 'GCC': 'A', 'GCA': 'A', 'GCG': 'A',
    'TGT': 'C', 'TGC': 'C',

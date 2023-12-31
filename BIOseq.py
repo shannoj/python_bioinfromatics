@@ -13,11 +13,11 @@ class bio_seq:
 
     def __validate(self):
         """Check the sequence for valid alphabet characters"""
-        return set(Nucleotides).issuperset(self.seq)
+        return set(NUCLEOTIDE_BASE[self.seq_type]).issuperset(self.seq)
     
     def random_seq(self, length=10, seq_type="DNA"):
         """Generate a random DNA sequence"""
-        seq = ''.join([random.choice(Nucleotides) for x in range(length)])
+        seq = ''.join([random.choice(NUCLEOTIDE_BASE[self.seq_type]) for x in range(length)])
         self.__init__(seq, seq_type, "Randomly Generated Sequence")
     
     def get_seq_biotype(self):
@@ -63,7 +63,9 @@ class bio_seq:
         if self.seq_type == "DNA":
             mapping = str.maketrans('ATCG', 'TAGC')
             return self.seq.translate(mapping)[::-1]
-        return "Not a DNA sequence"
+        else:
+            mapping = str.maketrans('AUCG', 'UAGC')
+            return self.seq.translate(mapping)[::-1]
     
     def calculate_gc_content(self):
         """Calculate the GC content of a DNA sequence"""
@@ -81,21 +83,25 @@ class bio_seq:
         """Translate the DNA sequence into an aminoacid sequence"""
         if self.seq_type == "DNA":
             return [DNA_Codons[self.seq[pos:pos + 3]] for pos in range(init_pos, len(self.seq) - 2, 3)]
-        return "Not a DNA sequence"
+        else:
+            return [RNA_Codons[self.seq[pos:pos + 3]] for pos in range(init_pos, len(self.seq) - 2, 3)]
     
     def codon_usage(self, aminoacid):
         """Provide the frequency of each codon encoding a given aminoacid in a DNA sequence"""
+        tmpList = []
         if self.seq_type == "DNA":
-            tmpList = []
             for i in range(0, len(self.seq) - 2, 3):
                 if DNA_Codons[self.seq[i:i + 3]] == aminoacid:
                     tmpList.append(self.seq[i:i + 3])
-            freqDict = dict(collections.Counter(tmpList))
-            totalWight = sum(freqDict.values())
-            for seq in freqDict:
-                freqDict[seq] = round(freqDict[seq] / totalWight, 2)
-            return freqDict
-        return "Not a DNA sequence"
+        else:
+            for i in range(0, len(self.seq) - 2, 3):
+                if RNA_Codons[self.seq[i:i + 3]] == aminoacid:
+                    tmpList.append(self.seq[i:i + 3])         
+        freqDict = dict(collections.Counter(tmpList))
+        totalWight = sum(freqDict.values())
+        for seq in freqDict:
+            freqDict[seq] = round(freqDict[seq] / totalWight, 2)
+        return freqDict
     
     def gen_reading_frames(self):
         """Generate the six reading frames of a DNA sequence, including the reverse complement"""
