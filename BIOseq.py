@@ -28,12 +28,22 @@ class bio_seq:
         return dict(collections.Counter(self.seq))
     
     def show_seq_info(self):
-        return f"[Label]: {self.label}\n[Sequence]: {self.seq}\n[Type]: {self.seq_type}\n[Length]: {len(self.seq)}\n[Is Valid]: {self.is_valid}\n[Nucleotide Frequency]: {self.countNucFrequency()}"
+        if self.seq_type == "DNA":
+            return f"[Label]: {self.label}\n[Sequence]: {self.seq}\n[Type]: {self.seq_type}\n[Length]: {len(self.seq)}\n[Is Valid]: {self.is_valid}\n[Nucleotide Frequency]: {self.countNucFrequency()}\n[GC Content]: {self.calculate_gc_content()}\n[Transcription]: {self.show_rna_transcription()}\n[Reverse Complement]: {self.generate_reverse_complement()}\n[Protein Translation]: {self.translate_seq()}\n[Reading Frames]: {self.gen_reading_frames()}\n[All Proteins]: {self.all_proteins_from_orfs()}"
+        return "Use a DNA Sequence"
     
     def generate_rna(self):
         """Convert DNA sequence into RNA sequence"""
         if self.seq_type == "DNA":
             self.seq_type = "RNA"
+            return self.seq.replace("T", "U")
+        if self.seq_type == "RNA":
+            return "Already an RNA sequence"
+        return "Not a DNA sequence"
+    
+    def show_rna_transcription(self):
+        """Show RNA transcription"""
+        if self.seq_type == "DNA":
             return self.seq.replace("T", "U")
         if self.seq_type == "RNA":
             return "Already an RNA sequence"
@@ -94,9 +104,11 @@ class bio_seq:
             frames.append(self.translate_seq(0))
             frames.append(self.translate_seq(1))
             frames.append(self.translate_seq(2))
-            frames.append(self.translate_seq(self.generate_reverse_complement(), 0))
-            frames.append(self.translate_seq(self.generate_reverse_complement(), 1))
-            frames.append(self.translate_seq(self.generate_reverse_complement(), 2))
+            reverse_complement = self.generate_reverse_complement()
+            reverse_seq = bio_seq(reverse_complement, "DNA", "Reverse Complement")
+            frames.append(reverse_seq.translate_seq(0))
+            frames.append(reverse_seq.translate_seq(1))
+            frames.append(reverse_seq.translate_seq(2))
             return frames
         return "Not a DNA sequence"
     
@@ -126,7 +138,7 @@ class bio_seq:
             if endReadPos > startReadPos:
                 rfs = self.gen_reading_frames(self.seq[startReadPos: endReadPos])
             else:
-                rfs = self.gen_reading_frames(self.seq)
+                rfs = self.gen_reading_frames()
             res = []
             for rf in rfs:
                 prots = self.proteins_from_rf(rf)
