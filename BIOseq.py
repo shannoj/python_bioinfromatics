@@ -33,8 +33,20 @@ class bio_seq:
     def generate_rna(self):
         """Convert DNA sequence into RNA sequence"""
         if self.seq_type == "DNA":
+            self.seq_type = "RNA"
             return self.seq.replace("T", "U")
+        if self.seq_type == "RNA":
+            return "Already an RNA sequence"
         return "Not a DNA sequence"
+    
+    def generate_dna(self):
+        """Convert RNA sequence into DNA sequence"""
+        if self.seq_type == "RNA":
+            self.seq_type = "DNA"
+            return self.seq.replace("U", "T")
+        if self.seq_type == "DNA":
+            return "Already a DNA sequence"
+        return "Not an RNA sequence"
     
     def generate_reverse_complement(self):
         """Generate reverse complement of the given DNA sequence"""
